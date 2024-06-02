@@ -14,10 +14,6 @@ type EventSourcedBy[Agg Aggregate[ID], ID any, Ev AppliableEvent[Agg, ID]] inter
 	ApplyEvent(ev Ev)
 }
 
-type CommandHandler[Cmd any] interface {
-	HandleCommand(cmd Cmd)
-}
-
 // Version of the Aggregate.
 // Version is monotonously increasing number that represents the version of the aggregate.
 type Version uuid.UUID
