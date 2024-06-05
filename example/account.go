@@ -1,19 +1,20 @@
 package example
 
 import (
-	cqrs_es "cqrs-es"
+	core "cqrs-es"
 	"github.com/google/uuid"
 )
 
 type Account struct {
 	Id        Id
-	Owner     string
-	Balance   int
+	Owner     Owner
+	Balance   Balance
 	CreatedAt CreationTime
 	DeletedAt DeletionTime
-	Ver       cqrs_es.Version
+	Ver       core.Version
 }
 
+// Id is Account's identifier. It uniquely identifies it.
 type Id uuid.UUID
 
 func NewId() Id {
@@ -24,15 +25,18 @@ func NewId() Id {
 	return Id(id)
 }
 
+// Balance is Account's balance value.
+type Balance int
+
+// Owner is Account's owner name.
+type Owner string
+
+// CreationTime is the time Account was created.
 type CreationTime string
 
+// DeletionTime is the time Account was deleted.
 type DeletionTime string
 
 func (a *Account) GetId() Id {
 	return a.Id
-}
-
-// TODO: Make this impl as default impl for EventSourcedBy interface when Go will allow this.
-func (a *Account) ApplyEvent(ev cqrs_es.AppliableEvent[*Account, Id]) {
-	ev.ApplyTo(a)
 }

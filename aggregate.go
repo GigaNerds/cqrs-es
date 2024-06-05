@@ -8,12 +8,6 @@ type Aggregate[ID any] interface {
 	GetId() ID
 }
 
-// EventSourcedBy is an interface that describes how event must be applied to the object.
-type EventSourcedBy[Agg Aggregate[ID], ID any, Ev AppliableEvent[Agg, ID]] interface {
-	// ApplyEvent applies an event to the object.
-	ApplyEvent(ev Ev)
-}
-
 // Version of the Aggregate.
 // Version is monotonously increasing number that represents the version of the aggregate.
 type Version uuid.UUID

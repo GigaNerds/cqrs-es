@@ -10,12 +10,12 @@ func CreatedAccount() Account {
 		Owner: "test",
 		At:    "2021-01-01 00:00:00",
 	}
-	acc.ApplyEvent(&event)
+	event.ApplyTo(&acc)
 
 	return acc
 }
 
-func (a *Account) WithBalance(balance int) {
+func (a *Account) WithBalance(balance Balance) {
 	a.Balance = balance
 }
 
@@ -26,7 +26,7 @@ func TestApplyCreated(t *testing.T) {
 		At:    "2021-01-01 00:00:00",
 	}
 
-	acc.ApplyEvent(&event)
+	event.ApplyTo(&acc)
 
 	if acc.Owner != "test" {
 		t.Errorf("Expected owner to be 'test', got '%s'", acc.Owner)
@@ -50,7 +50,7 @@ func TestApplyDeposit(t *testing.T) {
 		At:        "2022-01-01 00:00:00",
 	}
 
-	acc.ApplyEvent(&event)
+	event.ApplyTo(&acc)
 
 	if acc.Balance != 10 {
 		t.Errorf("Expected balance to be 10, got '%d'", acc.Balance)
@@ -67,7 +67,7 @@ func TestApplyWithdrawal(t *testing.T) {
 		At:        "2022-01-01 00:00:00",
 	}
 
-	acc.ApplyEvent(&event)
+	event.ApplyTo(&acc)
 
 	if acc.Balance != 10 {
 		t.Errorf("Expected balance to be 10, got '%d'", acc.Balance)
