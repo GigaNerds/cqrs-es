@@ -13,3 +13,7 @@ type Command[Agg core.Aggregate[ID], ID any, Ev core.AppliableEvent[Agg, ID]] in
 	// GetAggId returns cqrs_es.Aggregate's ID which is related to this Command.
 	GetAggId() ID
 }
+
+type Handler[Svc any] interface {
+	Handle(svc Svc)
+}

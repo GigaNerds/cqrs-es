@@ -1,25 +1,25 @@
 package command
 
 import (
-	account "cqrs-es/example"
+	"cqrs-es/example"
 	"time"
 )
 
 type Deposit struct {
-	AccountId account.Id
-	Amount    account.Balance
+	AccountId example.Id
+	Amount    example.Balance
 }
 
 // ExecuteCommand describes logic of applying this command to the example.Account object.
-func (c Deposit) ExecuteCommand(_ *account.Account) (account.AccountDeposit, error) {
-	deposit := account.AccountDeposit{
+func (c Deposit) ExecuteCommand(_ *example.Account) (example.AccountDeposit, error) {
+	deposit := example.AccountDeposit{
 		AccountId: c.AccountId,
 		Amount:    c.Amount,
-		At:        account.DepositTime(time.Now().UTC().String()),
+		At:        example.DepositTime(time.Now().UTC().String()),
 	}
 	return deposit, nil
 }
 
-func (c Deposit) GetRelatedId() account.Id {
+func (c Deposit) GetRelatedId() example.Id {
 	return c.AccountId
 }

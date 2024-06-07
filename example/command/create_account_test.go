@@ -1,12 +1,12 @@
 package command
 
 import (
-	account "cqrs-es/example"
+	"cqrs-es/example"
 	"testing"
 )
 
 func TestEmitsCreated(t *testing.T) {
-	acc := account.Account{}
+	acc := example.Account{}
 	cmd := CreateAccount{
 		Owner: "test",
 	}
