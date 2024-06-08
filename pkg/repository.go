@@ -1,4 +1,4 @@
-package cqrs_es
+package pkg
 
 type AggregateStorage[Agg Aggregate[ID], ID any] interface {
 	SaveAggregate(agg Agg) error

@@ -1,12 +1,14 @@
-package example
+package event
+
+import "cqrs-es/examples/account/domain"
 
 type AccountCreated struct {
-	AccountId Id
-	Owner     Owner
-	At        CreationTime
+	AccountId domain.Id
+	Owner     domain.Owner
+	At        domain.CreationTime
 }
 
-func (ev *AccountCreated) ApplyTo(agg *Account) {
+func (ev *AccountCreated) ApplyTo(agg *domain.Account) {
 	agg.Id = ev.AccountId
 	agg.Owner = ev.Owner
 	agg.Balance = 0
@@ -17,12 +19,12 @@ func (ev *AccountCreated) ApplyTo(agg *Account) {
 type DepositTime string
 
 type AccountDeposit struct {
-	AccountId Id
-	Amount    Balance
+	AccountId domain.Id
+	Amount    domain.Balance
 	At        DepositTime
 }
 
-func (ev *AccountDeposit) ApplyTo(agg *Account) {
+func (ev *AccountDeposit) ApplyTo(agg *domain.Account) {
 	if ev.AccountId != agg.Id {
 		panic("`AccountId` mismatch")
 	}
@@ -32,12 +34,12 @@ func (ev *AccountDeposit) ApplyTo(agg *Account) {
 type WithdrawalTime string
 
 type AccountWithdrawal struct {
-	AccountId Id
-	Amount    Balance
+	AccountId domain.Id
+	Amount    domain.Balance
 	At        WithdrawalTime
 }
 
-func (ev *AccountWithdrawal) ApplyTo(agg *Account) {
+func (ev *AccountWithdrawal) ApplyTo(agg *domain.Account) {
 	if ev.AccountId != agg.Id {
 		panic("`AccountId` mismatch")
 	}
@@ -45,11 +47,11 @@ func (ev *AccountWithdrawal) ApplyTo(agg *Account) {
 }
 
 type AccountDeleted struct {
-	AccountId Id
-	At        DeletionTime
+	AccountId domain.Id
+	At        domain.DeletionTime
 }
 
-func (ev *AccountDeleted) ApplyTo(agg *Account) {
+func (ev *AccountDeleted) ApplyTo(agg *domain.Account) {
 	if ev.AccountId != agg.Id {
 		panic("`AccountId` mismatch")
 	}

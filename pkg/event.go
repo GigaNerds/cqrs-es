@@ -1,4 +1,4 @@
-package cqrs_es
+package pkg
 
 // AppliableEvent is an interface that describes how event must be applied to the object.
 type AppliableEvent[Agg Aggregate[ID], ID any] interface {

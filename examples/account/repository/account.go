@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"cqrs-es/example"
+	"cqrs-es/examples/account/domain"
 )
 
-func (r *Repository) SaveAggregate(agg example.Account) error {
+func (r *Repository) SaveAggregate(agg domain.Account) error {
 	statement := `INSERT INTO accounts (id, owner, balance, created_at, deleted_at)
     			  VALUES ($1, $2, $3, $4, $5)
     		      ON CONFLICT(id)
@@ -33,26 +33,26 @@ func (r *Repository) SaveAggregate(agg example.Account) error {
 	return nil
 }
 
-func (r *Repository) LoadAggregate(id example.Id) (example.Account, error) {
+func (r *Repository) LoadAggregate(id domain.Id) (domain.Account, error) {
 	statement := "SELECT id, owner, balance, created_at, deleted_at FROM accounts WHERE id = $1"
 
-	var resId example.Id
-	var owner example.Owner
-	var balance example.Balance
-	var createdAt example.CreationTime
-	var deletedAt example.DeletionTime
+	var resId domain.Id
+	var owner domain.Owner
+	var balance domain.Balance
+	var createdAt domain.CreationTime
+	var deletedAt domain.DeletionTime
 
 	conn, err := r.DbConnection.Beginx()
 	if err != nil {
-		return example.Account{}, err
+		return domain.Account{}, err
 	}
 
 	err = conn.QueryRow(statement, id).Scan(&resId, &owner, &balance, &createdAt, &deletedAt)
 	if err != nil {
-		return example.Account{}, err
+		return domain.Account{}, err
 	}
 
-	account := example.Account{
+	account := domain.Account{
 		Id:        resId,
 		Owner:     owner,
 		Balance:   balance,

@@ -1,17 +1,17 @@
 package command
 
 import (
-	"cqrs-es/example"
+	"cqrs-es/examples/account/domain"
 	"testing"
 	"time"
 )
 
 func TestEmitsWithdraw(t *testing.T) {
-	acc := example.Account{
-		Id:        example.NewId(),
+	acc := domain.Account{
+		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: example.CreationTime(time.Now().UTC().String()),
+		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
 		DeletedAt: "",
 	}
 	cmd := Withdraw{
@@ -29,11 +29,11 @@ func TestEmitsWithdraw(t *testing.T) {
 }
 
 func TestEmitsErrorWhenNotEnoughBalance(t *testing.T) {
-	acc := example.Account{
-		Id:        example.NewId(),
+	acc := domain.Account{
+		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   7,
-		CreatedAt: example.CreationTime(time.Now().UTC().String()),
+		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
 		DeletedAt: "",
 	}
 	cmd := Withdraw{

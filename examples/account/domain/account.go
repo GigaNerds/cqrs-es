@@ -1,7 +1,7 @@
-package example
+package domain
 
 import (
-	core "cqrs-es"
+	core "cqrs-es/pkg"
 	"github.com/google/uuid"
 )
 

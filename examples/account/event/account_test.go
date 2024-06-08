@@ -1,11 +1,12 @@
-package example
+package event
 
 import (
+	"cqrs-es/examples/account/domain"
 	"testing"
 )
 
-func CreatedAccount() Account {
-	acc := Account{}
+func CreatedAccount() domain.Account {
+	acc := domain.Account{}
 	event := AccountCreated{
 		Owner: "test",
 		At:    "2021-01-01 00:00:00",
@@ -15,12 +16,8 @@ func CreatedAccount() Account {
 	return acc
 }
 
-func (a *Account) WithBalance(balance Balance) {
-	a.Balance = balance
-}
-
 func TestApplyCreated(t *testing.T) {
-	acc := Account{}
+	acc := domain.Account{}
 	event := AccountCreated{
 		Owner: "test",
 		At:    "2021-01-01 00:00:00",
@@ -59,7 +56,7 @@ func TestApplyDeposit(t *testing.T) {
 
 func TestApplyWithdrawal(t *testing.T) {
 	acc := CreatedAccount()
-	acc.WithBalance(20)
+	acc.Balance = 20
 
 	event := AccountWithdrawal{
 		AccountId: acc.Id,

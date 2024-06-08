@@ -1,17 +1,17 @@
 package command
 
 import (
-	"cqrs-es/example"
+	"cqrs-es/examples/account/domain"
 	"testing"
 	"time"
 )
 
 func TestEmitsDeposit(t *testing.T) {
-	acc := example.Account{
-		Id:        example.NewId(),
+	acc := domain.Account{
+		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: example.CreationTime(time.Now().UTC().String()),
+		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
 		DeletedAt: "",
 	}
 	cmd := Deposit{
