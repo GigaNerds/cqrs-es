@@ -7,5 +7,5 @@ type AggregateStorage[Agg Aggregate[ID], ID any] interface {
 }
 
 type EventStorage[Ev any] interface {
-	SaveEvent(ev Ev)
+	SaveEvent(ev Ev) error
 }

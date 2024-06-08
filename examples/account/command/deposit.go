@@ -7,8 +7,8 @@ import (
 )
 
 type Deposit struct {
-	AccountId domain.Id
-	Amount    domain.Balance
+	AccountId domain.AccountId
+	Amount    domain.AccountBalance
 }
 
 // ExecuteCommand describes logic of applying this command to the examples.Account object.
@@ -21,6 +21,6 @@ func (c Deposit) ExecuteCommand(_ *domain.Account) (event.AccountDeposit, error)
 	return deposit, nil
 }
 
-func (c Deposit) GetRelatedId() domain.Id {
+func (c Deposit) GetRelatedId() domain.AccountId {
 	return c.AccountId
 }

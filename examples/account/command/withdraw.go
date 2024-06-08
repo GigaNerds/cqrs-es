@@ -8,8 +8,8 @@ import (
 )
 
 type Withdraw struct {
-	AccountId domain.Id
-	Amount    domain.Balance
+	AccountId domain.AccountId
+	Amount    domain.AccountBalance
 }
 
 // ExecuteCommand describes logic of applying this command to the examples.Account object.
@@ -26,6 +26,6 @@ func (c Withdraw) ExecuteCommand(a *domain.Account) (event.AccountWithdrawal, er
 	return withdrawal, nil
 }
 
-func (c Withdraw) GetRelatedId() domain.Id {
+func (c Withdraw) GetRelatedId() domain.AccountId {
 	return c.AccountId
 }

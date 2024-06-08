@@ -1,35 +1,33 @@
 package domain
 
 import (
-	core "cqrs-es/pkg"
 	"github.com/google/uuid"
 )
 
 type Account struct {
-	Id        Id
-	Owner     Owner
-	Balance   Balance
+	Id        AccountId
+	Owner     AccountOwner
+	Balance   AccountBalance
 	CreatedAt CreationTime
 	DeletedAt DeletionTime
-	Ver       core.Version
 }
 
-// Id is Account's identifier. It uniquely identifies it.
-type Id uuid.UUID
+// AccountId is Account's identifier. It uniquely identifies it.
+type AccountId uuid.UUID
 
-func NewId() Id {
+func NewId() AccountId {
 	id, err := uuid.NewV6()
 	if err != nil {
 		panic(err)
 	}
-	return Id(id)
+	return AccountId(id)
 }
 
-// Balance is Account's balance value.
-type Balance int
+// AccountBalance is Account's balance value.
+type AccountBalance int
 
-// Owner is Account's owner name.
-type Owner string
+// AccountOwner is Account's owner name.
+type AccountOwner string
 
 // CreationTime is the time Account was created.
 type CreationTime string
@@ -37,6 +35,6 @@ type CreationTime string
 // DeletionTime is the time Account was deleted.
 type DeletionTime string
 
-func (a *Account) GetId() Id {
+func (a *Account) GetId() AccountId {
 	return a.Id
 }

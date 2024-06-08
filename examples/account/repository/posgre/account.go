@@ -33,12 +33,12 @@ func (r *Repository) SaveAggregate(agg domain.Account) error {
 	return nil
 }
 
-func (r *Repository) LoadAggregate(id domain.Id) (domain.Account, error) {
+func (r *Repository) LoadAggregate(id domain.AccountId) (domain.Account, error) {
 	statement := "SELECT id, owner, balance, created_at, deleted_at FROM accounts WHERE id = $1"
 
-	var resId domain.Id
-	var owner domain.Owner
-	var balance domain.Balance
+	var resId domain.AccountId
+	var owner domain.AccountOwner
+	var balance domain.AccountBalance
 	var createdAt domain.CreationTime
 	var deletedAt domain.DeletionTime
 

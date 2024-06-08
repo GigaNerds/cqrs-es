@@ -3,8 +3,8 @@ package event
 import "cqrs-es/examples/account/domain"
 
 type AccountCreated struct {
-	AccountId domain.Id
-	Owner     domain.Owner
+	AccountId domain.AccountId
+	Owner     domain.AccountOwner
 	At        domain.CreationTime
 }
 
@@ -16,11 +16,15 @@ func (ev *AccountCreated) ApplyTo(agg *domain.Account) {
 	agg.DeletedAt = ""
 }
 
+func (ev *AccountCreated) GetId() domain.AccountId {
+	return ev.AccountId
+}
+
 type DepositTime string
 
 type AccountDeposit struct {
-	AccountId domain.Id
-	Amount    domain.Balance
+	AccountId domain.AccountId
+	Amount    domain.AccountBalance
 	At        DepositTime
 }
 
@@ -34,8 +38,8 @@ func (ev *AccountDeposit) ApplyTo(agg *domain.Account) {
 type WithdrawalTime string
 
 type AccountWithdrawal struct {
-	AccountId domain.Id
-	Amount    domain.Balance
+	AccountId domain.AccountId
+	Amount    domain.AccountBalance
 	At        WithdrawalTime
 }
 
@@ -47,7 +51,7 @@ func (ev *AccountWithdrawal) ApplyTo(agg *domain.Account) {
 }
 
 type AccountDeleted struct {
-	AccountId domain.Id
+	AccountId domain.AccountId
 	At        domain.DeletionTime
 }
 
