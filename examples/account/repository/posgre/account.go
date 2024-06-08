@@ -1,4 +1,4 @@
-package repository
+package posgre
 
 import (
 	"cqrs-es/examples/account/domain"

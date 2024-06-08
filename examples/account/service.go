@@ -1,9 +1,9 @@
 package account
 
 import (
-	"cqrs-es/examples/account/repository"
+	"cqrs-es/examples/account/repository/posgre"
 )
 
 type Service struct {
-	Repo repository.Repository
+	Repo posgre.Repository
 }

@@ -1,4 +1,4 @@
-package repository
+package posgre
 
 import "github.com/jmoiron/sqlx"
 
