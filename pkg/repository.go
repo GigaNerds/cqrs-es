@@ -6,6 +6,6 @@ type AggregateStorage[Agg Aggregate[ID], ID any] interface {
 	LoadAggregate(id ID) (Agg, error)
 }
 
-type EventStorage[Ev any] interface {
+type EventStorage[Ev AppliableEvent[Agg, ID], Agg Aggregate[ID], ID any] interface {
 	SaveEvent(ev Ev) error
 }

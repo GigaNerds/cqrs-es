@@ -21,6 +21,6 @@ func (c Deposit) ExecuteCommand(_ *domain.Account) (event.AccountDeposit, error)
 	return deposit, nil
 }
 
-func (c Deposit) GetRelatedId() domain.AccountId {
-	return c.AccountId
+func (c Deposit) GetRelatedId() (domain.AccountId, error) {
+	return c.AccountId, nil
 }

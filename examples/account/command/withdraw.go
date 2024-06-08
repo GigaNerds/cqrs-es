@@ -26,6 +26,6 @@ func (c Withdraw) ExecuteCommand(a *domain.Account) (event.AccountWithdrawal, er
 	return withdrawal, nil
 }
 
-func (c Withdraw) GetRelatedId() domain.AccountId {
-	return c.AccountId
+func (c Withdraw) GetRelatedId() (domain.AccountId, error) {
+	return c.AccountId, nil
 }

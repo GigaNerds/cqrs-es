@@ -11,12 +11,6 @@ type Command[Agg pkg.Aggregate[ID], ID any, Ev pkg.AppliableEvent[Agg, ID]] inte
 	// ExecuteCommand executes a command on a given aggregate object.
 	ExecuteCommand(agg Agg) (Ev, error)
 
-	// GetAggId returns cqrs_es.Aggregate's ID which is related to this Command.
-	GetAggId() ID
-}
-
-// TODO: Maybe make part of Command interface.
-
-type Handler[Svc any, Res any] interface {
-	HandleWith(svc Svc) (Res, error)
+	// GetRelatedId returns cqrs_es.Aggregate's ID which is related to this Command.
+	GetRelatedId() (ID, error)
 }

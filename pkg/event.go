@@ -5,8 +5,8 @@ type AppliableEvent[Agg Aggregate[ID], ID any] interface {
 	// ApplyTo applies an event to the object.
 	ApplyTo(agg Agg)
 
-	// GetId returns the Aggregate ID which this event is related to.
-	GetId() ID
+	// GetRelatedId returns the Aggregate ID which this event is related to.
+	GetRelatedId() ID
 }
 
 // VersionedEvent is an object that represents an event with its version.

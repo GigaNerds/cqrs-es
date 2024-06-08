@@ -16,7 +16,7 @@ func (ev *AccountCreated) ApplyTo(agg *domain.Account) {
 	agg.DeletedAt = ""
 }
 
-func (ev *AccountCreated) GetId() domain.AccountId {
+func (ev *AccountCreated) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }
 

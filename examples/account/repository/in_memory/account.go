@@ -22,7 +22,7 @@ func (r *Repository) LoadAggregate(id domain.AccountId) (domain.Account, error) 
 }
 
 func (r *Repository) SaveEvent(ev pkg.AppliableEvent[*domain.Account, domain.AccountId]) error {
-	evs := r.AccountEvents[ev.GetId()]
+	evs := r.AccountEvents[ev.GetRelatedId()]
 	evs = append(evs, ev)
 
 	return nil
