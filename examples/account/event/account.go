@@ -35,6 +35,10 @@ func (ev *AccountDeposit) ApplyTo(agg *domain.Account) {
 	agg.Balance += ev.Amount
 }
 
+func (ev *AccountDeposit) GetRelatedId() domain.AccountId {
+	return ev.AccountId
+}
+
 type WithdrawalTime string
 
 type AccountWithdrawal struct {
@@ -50,6 +54,10 @@ func (ev *AccountWithdrawal) ApplyTo(agg *domain.Account) {
 	agg.Balance -= ev.Amount
 }
 
+func (ev *AccountWithdrawal) GetRelatedId() domain.AccountId {
+	return ev.AccountId
+}
+
 type AccountDeleted struct {
 	AccountId domain.AccountId
 	At        domain.DeletionTime
@@ -60,4 +68,8 @@ func (ev *AccountDeleted) ApplyTo(agg *domain.Account) {
 		panic("`AccountId` mismatch")
 	}
 	agg.DeletedAt = ev.At
+}
+
+func (ev *AccountDeleted) GetRelatedId() domain.AccountId {
+	return ev.AccountId
 }

@@ -21,11 +21,11 @@ func NewService() Service {
 	return svc
 }
 
-// Just wow.... very long and I don't know what to do with this
+type Command command.Command[*domain.Account, domain.AccountId, Event]
 
-func (s Service) HandleCommand(
-	cmd command.Command[*domain.Account, domain.AccountId, pkg.AppliableEvent[*domain.Account, domain.AccountId]],
-) (domain.Account, pkg.AppliableEvent[*domain.Account, domain.AccountId], error) {
+type Event pkg.AppliableEvent[*domain.Account, domain.AccountId]
+
+func (s Service) HandleCommand(cmd Command) (domain.Account, Event, error) {
 	repo := s.Repo
 
 	agg := domain.Account{}

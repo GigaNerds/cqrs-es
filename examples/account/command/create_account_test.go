@@ -23,7 +23,7 @@ func TestEmitsCreated(t *testing.T) {
 	}
 }
 
-func TestHandle(t *testing.T) {
+func TestHandleCreateAccount(t *testing.T) {
 	svc := account.NewService()
 	cmd := CreateAccount{
 		Owner: "test",

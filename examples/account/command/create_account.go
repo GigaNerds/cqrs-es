@@ -4,7 +4,6 @@ import (
 	"cqrs-es/examples/account"
 	"cqrs-es/examples/account/domain"
 	"cqrs-es/examples/account/event"
-	"cqrs-es/pkg"
 	"errors"
 	"time"
 )
@@ -16,7 +15,7 @@ type CreateAccount struct {
 // TODO: Better error handling. Strings in not the best idea. Maybe newtypes for command errors.
 
 // ExecuteCommand describes logic of applying this command to the examples.Account object.
-func (c CreateAccount) ExecuteCommand(_ *domain.Account) (pkg.AppliableEvent[*domain.Account, domain.AccountId], error) {
+func (c CreateAccount) ExecuteCommand(_ *domain.Account) (account.Event, error) {
 	created := event.AccountCreated{
 		AccountId: domain.NewId(),
 		Owner:     c.Owner,
@@ -27,26 +26,4 @@ func (c CreateAccount) ExecuteCommand(_ *domain.Account) (pkg.AppliableEvent[*do
 
 func (c CreateAccount) GetRelatedId() (domain.AccountId, error) {
 	return domain.AccountId{}, errors.New("don't have any `AccountId`")
-}
-
-func (c CreateAccount) HandleWith(svc account.Service) (domain.Account, error) {
-	agg := domain.Account{}
-
-	ev, err := c.ExecuteCommand(&agg)
-	if err != nil {
-		return domain.Account{}, err
-	}
-	ev.ApplyTo(&agg)
-
-	repo := svc.Repo
-	err = repo.SaveAggregate(agg)
-	if err != nil {
-		return domain.Account{}, err
-	}
-	err = repo.SaveEvent(ev)
-	if err != nil {
-		return domain.Account{}, err
-	}
-
-	return agg, nil
 }
