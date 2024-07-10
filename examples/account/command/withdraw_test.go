@@ -62,7 +62,7 @@ func TestHandleWithdraw(t *testing.T) {
 		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
 		DeletedAt: "",
 	}
-	_ = svc.Repo.SaveAggregate(acc)
+	_ = svc.Repo.SaveAggregate(&acc)
 
 	cmd := Withdraw{
 		AccountId: acc.Id,
