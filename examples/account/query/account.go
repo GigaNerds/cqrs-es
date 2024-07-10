@@ -5,7 +5,9 @@ import (
 	"cqrs-es/examples/account/domain"
 )
 
+// ById is a query to load domain.Account by it's domain.AccountId.
 type ById struct {
+	// Id of domain.Account to load.
 	Id domain.AccountId
 }
 
