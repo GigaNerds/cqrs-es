@@ -4,7 +4,6 @@ import (
 	"cqrs-es/examples/account/domain"
 	"cqrs-es/examples/account/repository/in_memory"
 	"cqrs-es/pkg"
-	"cqrs-es/pkg/command"
 )
 
 type Service struct {
@@ -21,14 +20,14 @@ func NewService() Service {
 	return svc
 }
 
-type Command command.Command[*domain.Account, domain.AccountId, Event]
+type Command pkg.Command[*domain.Account, domain.AccountId, Event]
 
 type Event pkg.AppliableEvent[*domain.Account, domain.AccountId]
 
 func (s Service) HandleCommand(cmd Command) (domain.Account, Event, error) {
 	repo := s.Repo
 
-	agg := domain.Account{}
+	agg := &domain.Account{}
 	id, err := cmd.GetRelatedId()
 	if err == nil {
 		agg, err = repo.LoadAggregate(id)
@@ -37,11 +36,11 @@ func (s Service) HandleCommand(cmd Command) (domain.Account, Event, error) {
 		}
 	}
 
-	ev, err := cmd.ExecuteCommand(&agg)
+	ev, err := cmd.ExecuteCommand(agg)
 	if err != nil {
 		return domain.Account{}, nil, err
 	}
-	ev.ApplyTo(&agg)
+	ev.ApplyTo(agg)
 
 	err = repo.SaveAggregate(agg)
 	if err != nil {
@@ -52,5 +51,5 @@ func (s Service) HandleCommand(cmd Command) (domain.Account, Event, error) {
 		return domain.Account{}, nil, err
 	}
 
-	return agg, ev, nil
+	return *agg, ev, nil
 }
