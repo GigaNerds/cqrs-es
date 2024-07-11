@@ -1,4 +1,4 @@
-package pkg
+package repository
 
 type AggregateStorage[Agg Aggregate[ID], ID any] interface {
 	SaveAggregate(agg Agg) error
