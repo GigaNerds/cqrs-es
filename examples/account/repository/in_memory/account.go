@@ -27,3 +27,17 @@ func (r *Repository) SaveEvent(ev pkg.AppliableEvent[*domain.Account, domain.Acc
 
 	return nil
 }
+
+type SelectByOwner struct {
+	Owner domain.AccountOwner
+}
+
+func (q SelectByOwner) ExecuteOpertation(repo Repository) (*domain.Account, error) {
+	for _, acc := range repo.Accounts {
+		if acc.Owner == q.Owner {
+			return &acc, nil
+		}
+	}
+
+	return &domain.Account{}, errors.New("not found")
+}
