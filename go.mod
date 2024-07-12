@@ -1,4 +1,4 @@
-module cqrs-es
+module github.com/GigaNerds/cqrs-es
 
 go 1.21
 
