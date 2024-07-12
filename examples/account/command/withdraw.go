@@ -1,11 +1,12 @@
 package command
 
 import (
-	"cqrs-es/examples/account"
-	"cqrs-es/examples/account/domain"
-	"cqrs-es/examples/account/event"
 	"errors"
 	"time"
+
+	"github.com/GigaNerds/cqrs-es/examples/account"
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs-es/examples/account/event"
 )
 
 type Withdraw struct {

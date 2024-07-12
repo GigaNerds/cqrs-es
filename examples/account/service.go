@@ -1,9 +1,9 @@
 package account
 
 import (
-	"cqrs-es/examples/account/domain"
-	"cqrs-es/examples/account/repository/in_memory"
-	"cqrs-es/pkg"
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs-es/examples/account/repository/in_memory"
+	"github.com/GigaNerds/cqrs-es/pkg"
 )
 
 type Service struct {

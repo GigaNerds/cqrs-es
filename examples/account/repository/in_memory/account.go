@@ -1,9 +1,10 @@
 package in_memory
 
 import (
-	"cqrs-es/examples/account/domain"
-	"cqrs-es/pkg"
 	"errors"
+
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs-es/pkg"
 )
 
 func (r *Repository) SaveAggregate(agg *domain.Account) error {

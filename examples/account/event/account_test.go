@@ -1,8 +1,9 @@
 package event
 
 import (
-	"cqrs-es/examples/account/domain"
 	"testing"
+
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
 )
 
 func CreatedAccount() domain.Account {
