@@ -1,6 +1,6 @@
 package event
 
-import "cqrs-es/examples/account/domain"
+import "github.com/GigaNerds/cqrs-es/examples/account/domain"
 
 type AccountActivated struct {
 	AccountId domain.AccountId

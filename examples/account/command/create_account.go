@@ -1,12 +1,13 @@
 package command
 
 import (
-	"cqrs-es/examples/account"
-	"cqrs-es/examples/account/domain"
-	"cqrs-es/examples/account/event"
-	"cqrs-es/pkg"
 	"errors"
 	"time"
+
+	"github.com/GigaNerds/cqrs-es/examples/account"
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs-es/examples/account/event"
+	"github.com/GigaNerds/cqrs-es/pkg"
 )
 
 type CreateAccount struct {

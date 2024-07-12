@@ -1,9 +1,9 @@
 package query
 
 import (
-	"cqrs-es/examples/account"
-	"cqrs-es/examples/account/domain"
-	"cqrs-es/examples/account/repository/in_memory"
+	"github.com/GigaNerds/cqrs-es/examples/account"
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs-es/examples/account/repository/in_memory"
 )
 
 // ById is a query to load domain.Account by it's domain.AccountId.

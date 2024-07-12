@@ -1,8 +1,8 @@
 package in_memory
 
 import (
-	"cqrs-es/examples/account/domain"
-	"cqrs-es/pkg"
+	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs-es/pkg"
 )
 
 // Repository is a repository for account domain.
