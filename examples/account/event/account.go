@@ -2,6 +2,19 @@ package event
 
 import "cqrs-es/examples/account/domain"
 
+type AccountActivated struct {
+	AccountId domain.AccountId
+	At        domain.ActivationTime
+}
+
+func (ev *AccountActivated) ApplyTo(agg *domain.Account) {
+	agg.ActivatedAt = ev.At
+}
+
+func (ev *AccountActivated) GetRelatedId() domain.AccountId {
+	return ev.AccountId
+}
+
 type AccountCreated struct {
 	AccountId domain.AccountId
 	Owner     domain.AccountOwner
@@ -12,6 +25,7 @@ func (ev *AccountCreated) ApplyTo(agg *domain.Account) {
 	agg.Id = ev.AccountId
 	agg.Owner = ev.Owner
 	agg.Balance = 0
+	agg.ActivatedAt = ""
 	agg.CreatedAt = ev.At
 	agg.DeletedAt = ""
 }
@@ -58,18 +72,18 @@ func (ev *AccountWithdrawal) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }
 
-type AccountDeleted struct {
+type AccountDeactivated struct {
 	AccountId domain.AccountId
-	At        domain.DeletionTime
+	At        domain.DeactivationTime
 }
 
-func (ev *AccountDeleted) ApplyTo(agg *domain.Account) {
+func (ev *AccountDeactivated) ApplyTo(agg *domain.Account) {
 	if ev.AccountId != agg.Id {
 		panic("`AccountId` mismatch")
 	}
 	agg.DeletedAt = ev.At
 }
 
-func (ev *AccountDeleted) GetRelatedId() domain.AccountId {
+func (ev *AccountDeactivated) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }

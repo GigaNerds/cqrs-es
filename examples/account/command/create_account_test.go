@@ -13,13 +13,19 @@ func TestEmitsCreated(t *testing.T) {
 		Owner: "test",
 	}
 	ev, _ := cmd.ExecuteCommand(&acc)
-	created, ok := ev.(*event.AccountCreated)
+	evs, ok := ev.(*account.EventSet)
 	if !ok {
 		t.Errorf("Wrong event type returned")
 	}
 
+	created := evs.Events[0].(*event.AccountCreated)
 	if created.Owner != cmd.Owner {
 		t.Errorf("Expected owner to be '%s', got '%s'", cmd.Owner, created.Owner)
+	}
+
+	activated := evs.Events[1].(*event.AccountActivated)
+	if activated.AccountId != created.AccountId {
+		t.Errorf("Expected id to be '%d', got '%d'", created.AccountId, activated.AccountId)
 	}
 }
 
@@ -34,13 +40,18 @@ func TestHandleCreateAccount(t *testing.T) {
 		t.Errorf(err.Error())
 	}
 
-	created, ok := ev.(*event.AccountCreated)
+	evs, ok := ev.(*account.EventSet)
 	if !ok {
 		t.Errorf("Wrong event type returned")
 	}
 
+	created := evs.Events[0].(*event.AccountCreated)
 	if created.Owner != cmd.Owner {
 		t.Errorf("Expected owner to be '%s', got '%s'", cmd.Owner, created.Owner)
+	}
+	activated := evs.Events[1].(*event.AccountActivated)
+	if activated.AccountId != created.AccountId {
+		t.Errorf("Expected id to be '%d', got '%d'", created.AccountId, activated.AccountId)
 	}
 
 	if agg.Owner != cmd.Owner {

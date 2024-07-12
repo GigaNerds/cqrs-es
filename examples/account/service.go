@@ -24,6 +24,16 @@ type Command pkg.Command[*domain.Account, domain.AccountId, Event]
 
 type Event pkg.AppliableEvent[*domain.Account, domain.AccountId]
 
+type EventSet struct {
+	pkg.EventSet[*domain.Account, domain.AccountId, Event]
+}
+
+func NewSet(evs []Event) EventSet {
+	return EventSet{
+		pkg.NewSet(evs),
+	}
+}
+
 func (s Service) HandleCommand(cmd Command) (domain.Account, Event, error) {
 	repo := s.Repo
 
