@@ -17,16 +17,8 @@ type VersionedEvent[E any] struct {
 	Ver Version
 }
 
-// EventSet is object which is used to combine multiple AppliableEvent's. It's usable to return this object
-// from Command with events stored in it. It applies AppliableEvent iterface.
-type EventSet[Agg Aggregate[ID], ID comparable, Ev AppliableEvent[Agg, ID]] struct {
+type EventSet[Agg Aggregate[ID], ID any, Ev AppliableEvent[Agg, ID]] struct {
 	Events []Ev
-}
-
-func NewSet[Agg Aggregate[ID], ID comparable, Ev AppliableEvent[Agg, ID]](evs []Ev) EventSet[Agg, ID, Ev] {
-	return EventSet[Agg, ID, Ev]{
-		Events: evs,
-	}
 }
 
 func (es *EventSet[Agg, Id, Ev]) ApplyTo(agg Agg) {
@@ -38,8 +30,8 @@ func (es *EventSet[Agg, Id, Ev]) ApplyTo(agg Agg) {
 func (es *EventSet[Agg, ID, Ev]) GetRelatedId() ID {
 	id := es.Events[0].GetRelatedId()
 	for _, ev := range es.Events {
-		evId := ev.GetRelatedId()
-		if evId != id {
+		ev_id := ev.GetRelatedId()
+		if ev_id != id {
 			panic("events have incompatible Id's")
 		}
 	}

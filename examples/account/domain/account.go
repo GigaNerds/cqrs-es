@@ -5,11 +5,12 @@ import (
 )
 
 type Account struct {
-	Id        AccountId
-	Owner     AccountOwner
-	Balance   AccountBalance
-	CreatedAt CreationTime
-	DeletedAt DeletionTime
+	Id          AccountId
+	Owner       AccountOwner
+	Balance     AccountBalance
+	ActivatedAt ActivationTime
+	CreatedAt   CreationTime
+	DeletedAt   DeactivationTime
 }
 
 // AccountId is Account's identifier. It uniquely identifies it.
@@ -29,11 +30,15 @@ type AccountBalance int
 // AccountOwner is Account's owner name.
 type AccountOwner string
 
+// ActivationTime is the time account was activated.
+type ActivationTime string
+
 // CreationTime is the time Account was created.
 type CreationTime string
 
-// DeletionTime is the time Account was deleted.
-type DeletionTime string
+// DeactivationTime is the time Account was deactivated. Account's are never deleted to
+// save data.
+type DeactivationTime string
 
 func (a *Account) GetId() AccountId {
 	return a.Id
