@@ -4,8 +4,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/GigaNerds/cqrs-es/examples/account"
-	"github.com/GigaNerds/cqrs-es/examples/account/domain"
+	"github.com/GigaNerds/cqrs_es/examples/account"
+	"github.com/GigaNerds/cqrs_es/examples/account/domain"
 )
 
 func TestHandleById(t *testing.T) {

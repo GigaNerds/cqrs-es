@@ -1,4 +1,4 @@
-package pkg
+package cqrs_es
 
 // TODO: Add support for array of events.
 

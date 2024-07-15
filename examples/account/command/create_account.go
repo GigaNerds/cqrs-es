@@ -4,10 +4,10 @@ import (
 	"errors"
 	"time"
 
-	"github.com/GigaNerds/cqrs-es/examples/account"
-	"github.com/GigaNerds/cqrs-es/examples/account/domain"
-	"github.com/GigaNerds/cqrs-es/examples/account/event"
-	"github.com/GigaNerds/cqrs-es/pkg"
+	"github.com/GigaNerds/cqrs_es"
+	"github.com/GigaNerds/cqrs_es/examples/account"
+	"github.com/GigaNerds/cqrs_es/examples/account/domain"
+	"github.com/GigaNerds/cqrs_es/examples/account/event"
 )
 
 type CreateAccount struct {
@@ -35,7 +35,7 @@ func (c CreateAccount) ExecuteCommand(_ *domain.Account) (account.Event, error) 
 	evSlice = append(evSlice, &activated)
 
 	eventSet := account.EventSet{
-		EventSet: pkg.NewSet(evSlice),
+		EventSet: cqrs_es.NewEventSet(evSlice),
 	}
 
 	return &eventSet, nil

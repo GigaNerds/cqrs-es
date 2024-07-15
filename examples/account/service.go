@@ -1,9 +1,9 @@
 package account
 
 import (
-	"github.com/GigaNerds/cqrs-es/examples/account/domain"
-	"github.com/GigaNerds/cqrs-es/examples/account/repository/in_memory"
-	"github.com/GigaNerds/cqrs-es/pkg"
+	"github.com/GigaNerds/cqrs_es"
+	"github.com/GigaNerds/cqrs_es/examples/account/domain"
+	"github.com/GigaNerds/cqrs_es/examples/account/repository/in_memory"
 )
 
 type Service struct {
@@ -20,17 +20,17 @@ func NewService() Service {
 	return svc
 }
 
-type Command pkg.Command[*domain.Account, domain.AccountId, Event]
+type Command cqrs_es.Command[*domain.Account, domain.AccountId, Event]
 
-type Event pkg.AppliableEvent[*domain.Account, domain.AccountId]
+type Event cqrs_es.AppliableEvent[*domain.Account, domain.AccountId]
 
 type EventSet struct {
-	pkg.EventSet[*domain.Account, domain.AccountId, Event]
+	cqrs_es.EventSet[*domain.Account, domain.AccountId, Event]
 }
 
 func NewSet(evs []Event) EventSet {
 	return EventSet{
-		pkg.NewSet(evs),
+		cqrs_es.NewEventSet(evs),
 	}
 }
 

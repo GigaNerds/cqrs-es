@@ -1,4 +1,4 @@
-package pkg
+package cqrs_es
 
 // AppliableEvent is an interface that describes how event must be applied to the object.
 type AppliableEvent[Agg Aggregate[ID], ID any] interface {
@@ -23,7 +23,7 @@ type EventSet[Agg Aggregate[ID], ID comparable, Ev AppliableEvent[Agg, ID]] stru
 	Events []Ev
 }
 
-func NewSet[Agg Aggregate[ID], ID comparable, Ev AppliableEvent[Agg, ID]](evs []Ev) EventSet[Agg, ID, Ev] {
+func NewEventSet[Agg Aggregate[ID], ID comparable, Ev AppliableEvent[Agg, ID]](evs []Ev) EventSet[Agg, ID, Ev] {
 	return EventSet[Agg, ID, Ev]{
 		Events: evs,
 	}
