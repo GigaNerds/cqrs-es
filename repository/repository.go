@@ -1,6 +1,6 @@
 package repository
 
-import cqrs_es "github.com/GigaNerds/cqrs-es"
+import cqrs_es "github.com/GigaNerds/cqrs_es"
 
 type AggregateStorage[Agg cqrs_es.Aggregate[ID], ID any] interface {
 	SaveAggregate(agg Agg) error
