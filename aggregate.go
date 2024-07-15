@@ -1,4 +1,4 @@
-package pkg
+package cqrs_es
 
 import "github.com/google/uuid"
 

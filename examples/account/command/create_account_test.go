@@ -3,9 +3,9 @@ package command
 import (
 	"testing"
 
-	"github.com/GigaNerds/cqrs-es/examples/account"
-	"github.com/GigaNerds/cqrs-es/examples/account/domain"
-	"github.com/GigaNerds/cqrs-es/examples/account/event"
+	"github.com/GigaNerds/cqrs_es/examples/account"
+	"github.com/GigaNerds/cqrs_es/examples/account/domain"
+	"github.com/GigaNerds/cqrs_es/examples/account/event"
 )
 
 func TestEmitsCreated(t *testing.T) {
