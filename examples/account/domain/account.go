@@ -1,6 +1,8 @@
 package domain
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 )
 
@@ -31,14 +33,14 @@ type AccountBalance int
 type AccountOwner string
 
 // ActivationTime is the time account was activated.
-type ActivationTime string
+type ActivationTime time.Time
 
 // CreationTime is the time Account was created.
-type CreationTime string
+type CreationTime time.Time
 
 // DeactivationTime is the time Account was deactivated. Account's are never deleted to
 // save data.
-type DeactivationTime string
+type DeactivationTime time.Time
 
 func (a *Account) GetId() AccountId {
 	return a.Id

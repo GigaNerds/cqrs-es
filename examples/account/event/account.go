@@ -1,6 +1,10 @@
 package event
 
-import "github.com/GigaNerds/cqrs_es/examples/account/domain"
+import (
+	"time"
+
+	"github.com/GigaNerds/cqrs_es/examples/account/domain"
+)
 
 type AccountActivated struct {
 	AccountId domain.AccountId
@@ -15,6 +19,14 @@ func (ev *AccountActivated) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }
 
+func (ev *AccountActivated) GetEventType() string {
+	return "account.activated"
+}
+
+func (ev *AccountActivated) GetHappenedAt() time.Time {
+	return time.Time(ev.At)
+}
+
 type AccountCreated struct {
 	AccountId domain.AccountId
 	Owner     domain.AccountOwner
@@ -25,16 +37,24 @@ func (ev *AccountCreated) ApplyTo(agg *domain.Account) {
 	agg.Id = ev.AccountId
 	agg.Owner = ev.Owner
 	agg.Balance = 0
-	agg.ActivatedAt = ""
+	agg.ActivatedAt = domain.ActivationTime{}
 	agg.CreatedAt = ev.At
-	agg.DeletedAt = ""
+	agg.DeletedAt = domain.DeactivationTime{}
 }
 
 func (ev *AccountCreated) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }
 
-type DepositTime string
+func (ev *AccountCreated) GetEventType() string {
+	return "account.created"
+}
+
+func (ev *AccountCreated) GetHappenedAt() time.Time {
+	return time.Time(ev.At)
+}
+
+type DepositTime time.Time
 
 type AccountDeposit struct {
 	AccountId domain.AccountId
@@ -53,7 +73,15 @@ func (ev *AccountDeposit) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }
 
-type WithdrawalTime string
+func (ev *AccountDeposit) GetEventType() string {
+	return "account.deposit"
+}
+
+func (ev *AccountDeposit) GetHappenedAt() time.Time {
+	return time.Time(ev.At)
+}
+
+type WithdrawalTime time.Time
 
 type AccountWithdrawal struct {
 	AccountId domain.AccountId
@@ -72,6 +100,14 @@ func (ev *AccountWithdrawal) GetRelatedId() domain.AccountId {
 	return ev.AccountId
 }
 
+func (ev *AccountWithdrawal) GetEventType() string {
+	return "account.withdrawal"
+}
+
+func (ev *AccountWithdrawal) GetHappenedAt() time.Time {
+	return time.Time(ev.At)
+}
+
 type AccountDeactivated struct {
 	AccountId domain.AccountId
 	At        domain.DeactivationTime
@@ -86,4 +122,12 @@ func (ev *AccountDeactivated) ApplyTo(agg *domain.Account) {
 
 func (ev *AccountDeactivated) GetRelatedId() domain.AccountId {
 	return ev.AccountId
+}
+
+func (ev *AccountDeactivated) GetEventType() string {
+	return "account.deactivated"
+}
+
+func (ev *AccountDeactivated) GetHappenAt() time.Time {
+	return time.Time(ev.At)
 }

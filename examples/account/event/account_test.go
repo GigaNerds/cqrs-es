@@ -2,15 +2,18 @@ package event
 
 import (
 	"testing"
+	"time"
 
 	"github.com/GigaNerds/cqrs_es/examples/account/domain"
 )
 
 func CreatedAccount() domain.Account {
 	acc := domain.Account{}
+	at, _ := time.Parse(time.RFC3339, "2021-01-01 00:00:00")
+
 	event := AccountCreated{
 		Owner: "test",
-		At:    "2021-01-01 00:00:00",
+		At:    domain.CreationTime(at),
 	}
 	event.ApplyTo(&acc)
 
@@ -19,9 +22,11 @@ func CreatedAccount() domain.Account {
 
 func TestApplyCreated(t *testing.T) {
 	acc := domain.Account{}
+	at, _ := time.Parse(time.RFC3339, "2021-01-01 00:00:00")
+
 	event := AccountCreated{
 		Owner: "test",
-		At:    "2021-01-01 00:00:00",
+		At:    domain.CreationTime(at),
 	}
 
 	event.ApplyTo(&acc)
@@ -32,20 +37,22 @@ func TestApplyCreated(t *testing.T) {
 	if acc.Balance != 0 {
 		t.Errorf("Expected balance to be 0, got '%d'", acc.Balance)
 	}
-	if acc.DeletedAt != "" {
-		t.Errorf("Expected deleted_at to be '', got '%s'", acc.DeletedAt)
+	if acc.DeletedAt != domain.DeactivationTime(time.Time{}) {
+		t.Errorf("Expected deleted_at to be '', got '%v'", acc.DeletedAt)
 	}
-	if acc.CreatedAt != "2021-01-01 00:00:00" {
-		t.Errorf("Expected created_at to be '2021-01-01 00:00:00', got '%s'", acc.CreatedAt)
+	if acc.CreatedAt != domain.CreationTime(at) {
+		t.Errorf("Expected created_at to be '2021-01-01 00:00:00', got '%v'", acc.CreatedAt)
 	}
 }
 
 func TestApplyDeposit(t *testing.T) {
 	acc := CreatedAccount()
+	at, _ := time.Parse(time.RFC3339, "2021-01-01 00:00:00")
+
 	event := AccountDeposit{
 		AccountId: acc.Id,
 		Amount:    10,
-		At:        "2022-01-01 00:00:00",
+		At:        DepositTime(at),
 	}
 
 	event.ApplyTo(&acc)
@@ -58,11 +65,12 @@ func TestApplyDeposit(t *testing.T) {
 func TestApplyWithdrawal(t *testing.T) {
 	acc := CreatedAccount()
 	acc.Balance = 20
+	at, _ := time.Parse(time.RFC3339, "2021-01-01 00:00:00")
 
 	event := AccountWithdrawal{
 		AccountId: acc.Id,
 		Amount:    10,
-		At:        "2022-01-01 00:00:00",
+		At:        WithdrawalTime(at),
 	}
 
 	event.ApplyTo(&acc)

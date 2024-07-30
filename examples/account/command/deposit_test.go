@@ -14,8 +14,8 @@ func TestEmitsDeposit(t *testing.T) {
 		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	cmd := Deposit{
 		AccountId: acc.Id,
@@ -41,8 +41,8 @@ func TestHandleDeposit(t *testing.T) {
 		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	_ = svc.Repo.SaveAggregate(&acc)
 

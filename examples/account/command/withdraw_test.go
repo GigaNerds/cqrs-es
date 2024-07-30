@@ -14,8 +14,8 @@ func TestEmitsWithdraw(t *testing.T) {
 		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	cmd := Withdraw{
 		AccountId: acc.Id,
@@ -40,8 +40,8 @@ func TestEmitsErrorWhenNotEnoughBalance(t *testing.T) {
 		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   7,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	cmd := Withdraw{
 		AccountId: acc.Id,
@@ -60,8 +60,8 @@ func TestHandleWithdraw(t *testing.T) {
 		Id:        domain.NewId(),
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	_ = svc.Repo.SaveAggregate(&acc)
 

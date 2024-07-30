@@ -3,6 +3,7 @@ package account
 import (
 	"github.com/GigaNerds/cqrs_es"
 	"github.com/GigaNerds/cqrs_es/examples/account/domain"
+	"github.com/GigaNerds/cqrs_es/examples/account/repository"
 	"github.com/GigaNerds/cqrs_es/examples/account/repository/in_memory"
 )
 
@@ -56,9 +57,31 @@ func (s Service) HandleCommand(cmd Command) (domain.Account, Event, error) {
 	if err != nil {
 		return domain.Account{}, nil, err
 	}
-	err = repo.SaveEvent(ev)
-	if err != nil {
-		return domain.Account{}, nil, err
+
+	set, ok := ev.(*EventSet)
+	if ok {
+		storable_evs := make([]repository.StorableEvent, 0)
+		for _, ev := range set.Events {
+			ev, ok := ev.(repository.StorableEvent)
+			if !ok {
+				panic("unexpected event type")
+			}
+			storable_evs = append(storable_evs, ev)
+		}
+
+		err = repo.SaveEvents(storable_evs)
+		if err != nil {
+			return domain.Account{}, nil, err
+		}
+	} else {
+		ev, ok := ev.(repository.StorableEvent)
+		if !ok {
+			panic("unexpected event type")
+		}
+		err = repo.SaveEvent(ev)
+		if err != nil {
+			return domain.Account{}, nil, err
+		}
 	}
 
 	return *agg, ev, nil
