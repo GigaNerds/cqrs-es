@@ -16,8 +16,8 @@ func TestHandleById(t *testing.T) {
 		Id:        id,
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	svc.Repo.SaveAggregate(&agg)
 
@@ -42,8 +42,8 @@ func TestHandleByOwner(t *testing.T) {
 		Id:        id,
 		Owner:     "test",
 		Balance:   20,
-		CreatedAt: domain.CreationTime(time.Now().UTC().String()),
-		DeletedAt: "",
+		CreatedAt: domain.CreationTime(time.Now().UTC()),
+		DeletedAt: domain.DeactivationTime{},
 	}
 	svc.Repo.SaveAggregate(&agg)
 

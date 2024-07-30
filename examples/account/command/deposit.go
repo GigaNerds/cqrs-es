@@ -18,7 +18,7 @@ func (c Deposit) ExecuteCommand(_ *domain.Account) (account.Event, error) {
 	deposit := event.AccountDeposit{
 		AccountId: c.AccountId,
 		Amount:    c.Amount,
-		At:        event.DepositTime(time.Now().UTC().String()),
+		At:        event.DepositTime(time.Now().UTC()),
 	}
 	return &deposit, nil
 }

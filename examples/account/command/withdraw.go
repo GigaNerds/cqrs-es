@@ -23,7 +23,7 @@ func (c Withdraw) ExecuteCommand(a *domain.Account) (account.Event, error) {
 	withdrawal := event.AccountWithdrawal{
 		AccountId: c.AccountId,
 		Amount:    c.Amount,
-		At:        event.WithdrawalTime(time.Now().UTC().String()),
+		At:        event.WithdrawalTime(time.Now().UTC()),
 	}
 	return &withdrawal, nil
 }

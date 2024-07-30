@@ -23,7 +23,7 @@ func (c CreateAccount) ExecuteCommand(_ *domain.Account) (account.Event, error) 
 	created := event.AccountCreated{
 		AccountId: domain.NewId(),
 		Owner:     c.Owner,
-		At:        domain.CreationTime(time.Now().UTC().String()),
+		At:        domain.CreationTime(time.Now().UTC()),
 	}
 	activated := event.AccountActivated{
 		AccountId: created.AccountId,

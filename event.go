@@ -4,9 +4,6 @@ package cqrs_es
 type AppliableEvent[Agg Aggregate[ID], ID any] interface {
 	// ApplyTo applies an event to the object.
 	ApplyTo(agg Agg)
-
-	// GetRelatedId returns the Aggregate ID which this event is related to.
-	GetRelatedId() ID
 }
 
 // VersionedEvent is an object that represents an event with its version.
@@ -33,16 +30,4 @@ func (es *EventSet[Agg, Id, Ev]) ApplyTo(agg Agg) {
 	for _, ev := range es.Events {
 		ev.ApplyTo(agg)
 	}
-}
-
-func (es *EventSet[Agg, ID, Ev]) GetRelatedId() ID {
-	id := es.Events[0].GetRelatedId()
-	for _, ev := range es.Events {
-		evId := ev.GetRelatedId()
-		if evId != id {
-			panic("events have incompatible Id's")
-		}
-	}
-
-	return id
 }

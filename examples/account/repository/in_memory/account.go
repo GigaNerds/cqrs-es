@@ -3,8 +3,8 @@ package in_memory
 import (
 	"errors"
 
-	cqrs_es "github.com/GigaNerds/cqrs_es"
 	"github.com/GigaNerds/cqrs_es/examples/account/domain"
+	"github.com/GigaNerds/cqrs_es/examples/account/repository"
 )
 
 func (r *Repository) SaveAggregate(agg *domain.Account) error {
@@ -22,9 +22,14 @@ func (r *Repository) LoadAggregate(id domain.AccountId) (*domain.Account, error)
 	return &agg, nil
 }
 
-func (r *Repository) SaveEvent(ev cqrs_es.AppliableEvent[*domain.Account, domain.AccountId]) error {
-	evs := r.AccountEvents[ev.GetRelatedId()]
-	evs = append(evs, ev)
+func (r *Repository) SaveEvent(ev repository.StorableEvent) error {
+	return r.SaveEvents([]repository.StorableEvent{ev})
+}
+
+func (r *Repository) SaveEvents(evs []repository.StorableEvent) error {
+	for _, ev := range evs {
+		r.AccountEvents[ev.GetRelatedId()] = append(r.AccountEvents[ev.GetRelatedId()], ev)
+	}
 
 	return nil
 }
